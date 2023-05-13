@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+    nginx:
+        build:
+            context: .
+            dockerfile: ubuntu.dockerfile
+        ports:
+            - 80:80
+        volumes:
+            - ./:/var/www/html
+        container_name: yiinginx
+        depends_on:
+            - mysql
+        networks:
+            - yii-app-network
+
+    mysql:
+        image: mysql:5.7
+        restart: always
+        container_name: yiimysql
+        ports:
+            - 3306:3306
+        environment:
+            MYSQL_DATABASE: laravel
+            MYSQL_ROOT_PASSWORD: laravel
+        volumes:
+            - ./dockerDBData:/var/lib/mysql
+        networks:
+            yii-app-network:
+                ipv4_address: 13.0.0.8
+    
+    # redis:
+    #     image: redis
+    #     container_name: redis
+    #     ports:
+    #         - 6379:6379
+    #     networks:
+    #         yii-app-network:
+    #             ipv4_address: 13.0.0.9
+
+networks:
+    yii-app-network:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: "13.0.0.0/16"
