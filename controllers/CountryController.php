@@ -5,12 +5,16 @@ namespace app\controllers;
 use yii\web\Controller;
 use yii\data\Pagination;
 use app\models\Country;
+use app\modules\gustavo\Module;
 
 class CountryController extends Controller
 {
     public function actionIndex()
     {
         $query = Country::find();
+
+        $gusModule = \Yii::$app->getModule('gustavo');
+        $dataFromModule = $gusModule->params['foo'];
 
         $pagination = new Pagination([
             'defaultPageSize' => 5,
@@ -25,6 +29,7 @@ class CountryController extends Controller
         return $this->render('index', [
             'countries' => $countries,
             'pagination' => $pagination,
+            'gusData' => $dataFromModule
         ]);
     }
 }

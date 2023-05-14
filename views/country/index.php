@@ -3,6 +3,9 @@ use yii\helpers\Html;
 use yii\widgets\LinkPager;
 ?>
 <h1>Countries</h1>
+
+<p> <?= Html::encode($gusData) ?> </p>
+
 <ul>
 <?php foreach ($countries as $country): ?>
     <li>

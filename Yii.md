@@ -3,7 +3,41 @@
 ```
 ```
 
-### /usr/GustavoDev/yii/models/Country.php
+### ./config/web.php
+Config pretty routes
+```php
+$config = [
+    'components' => [
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            // Disable index.php
+            'showScriptName' => false,
+            // Disable r= routes
+            'enablePrettyUrl' => true,
+            'rules' => array(
+                    '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                    '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                    '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+            ),
+        ],
+    ]
+]
+```
+
+### ./config/web.php
+This is how we load modules
+```php
+$config = [
+    'modules' => [
+            'gustavo' => [
+                'class' => 'app\modules\gustavo\Module',
+                // ... other configurations for the module ...
+            ],
+        ],
+]
+```
+
+### ./models/Country.php
 ```php
 <?php
 
@@ -17,7 +51,7 @@ class Country extends ActiveRecord
 
 ```
 
-### /usr/GustavoDev/yii/controllers/CountryController.php
+### ./controllers/CountryController.php
 ```php
 <?php
 
@@ -52,7 +86,7 @@ class CountryController extends Controller
 
 ```
 
-### /usr/GustavoDev/yii/views/country/index.php
+### ./views/country/index.php
 ```php
 <?php
 use yii\helpers\Html;
