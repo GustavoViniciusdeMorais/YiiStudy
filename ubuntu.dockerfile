@@ -1,23 +1,25 @@
-FROM ubuntu:latest
+FROM yiibkp
 
-RUN apt update
+# FROM ubuntu:latest
 
-RUN apt install nginx -y
+# RUN apt update
 
-RUN apt install nano
+# RUN apt install nginx -y
 
-RUN apt install curl -y
+# RUN apt install nano
 
-RUN apt update
+# RUN apt install curl -y
 
-RUN apt install systemctl -y
+# RUN apt update
 
-ADD ./nginx/default.conf /etc/nginx/sites-available/default
+# RUN apt install systemctl -y
 
-# RUN mkdir /var/www/mysite
+# ADD ./nginx/default.conf /etc/nginx/sites-available/default
 
-# RUN mkdir /var/www/other
+# # RUN mkdir /var/www/mysite
 
-WORKDIR /var/www/html
+# # RUN mkdir /var/www/other
 
-ENTRYPOINT ["tail", "-f", "/dev/null"]
+# WORKDIR /var/www/html
+
+# ENTRYPOINT ["tail", "-f", "/dev/null"]

@@ -14,6 +14,15 @@ sudo docker exec -it yiinginx bash
 
 ```
 
+# yiibkp container
+```
+sudo docker commit 3cd8d2213e81 yiibkp
+FROM yiibkp
+
+./startServices.sh
+
+```
+
 ### DB Setup
 ```
 
