@@ -147,4 +147,10 @@ class SiteController extends Controller
             return $this->render('entry', ['model' => $model]);
         }
     }
+
+    public function actionPrivacyPolicy()
+    {
+        $message = 'some thing';
+        return $this->render('privacy-policy', ['message' => $message]);
+    }
 }
