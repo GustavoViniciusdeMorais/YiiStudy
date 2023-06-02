@@ -14,6 +14,21 @@ sudo docker exec -it yiinginx bash
 
 ```
 
+### Advanced Template
+Type the following command to initialize the advanced project
+```
+php init
+```
+
+# yiibkp container
+```
+sudo docker commit 3cd8d2213e81 yiibkp
+FROM yiibkp
+
+./startServices.sh
+
+```
+
 ### DB Setup
 ```
 
