@@ -4,9 +4,10 @@ return [
     'components' => [
         'db' => [
             'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=yii2advanced',
+            'dsn' => 'mysql:host=mysql;dbname=laravel',
             'username' => 'root',
-            'password' => '',
+            'password' => 'laravel',
+            'charset' => 'utf8',
             'charset' => 'utf8',
         ],
         'mailer' => [
