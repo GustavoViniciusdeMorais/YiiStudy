@@ -19,3 +19,25 @@ php yii migrate
 php yii migrate/down [number of migrations to revert]
 
 ```
+
+### Test DB connection inside controllers
+Command to migrate users in the advanced yii project
+```
+php yii migrate
+```
+```php
+namespace frontend\controllers;
+
+use Yii;
+
+class SiteController extends Controller
+{
+    public function actionIndex()
+    {
+        $users = Yii::$app->db->createCommand('SELECT * FROM user')
+            ->queryAll();
+        print_r(json_encode(['users' => $users]));echo "\n\n";exit;
+        //return $this->render('index');
+    }
+}
+```

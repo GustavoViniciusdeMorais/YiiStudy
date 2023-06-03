@@ -75,6 +75,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        // $users = Yii::$app->db->createCommand('SELECT * FROM user')
+        // ->queryAll();
+        // print_r(json_encode(['users' => $users]));echo "\n\n";exit;
         return $this->render('index');
     }
 
