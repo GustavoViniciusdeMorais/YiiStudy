@@ -15,10 +15,11 @@ if (!YII_ENV_TEST) {
     $config['modules']['debug'] = [
         'class' => \yii\debug\Module::class,
     ];
-
+    
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => \yii\gii\Module::class,
+        'allowedIPs' => ['127.0.0.1', '::1', $_SERVER['REMOTE_ADDR']],
     ];
 }
 
