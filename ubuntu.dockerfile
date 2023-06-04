@@ -14,7 +14,7 @@ FROM yiibkp
 
 # RUN apt install systemctl -y
 
-# ADD ./nginx/default.conf /etc/nginx/sites-available/default
+ADD ./nginx/default.conf /etc/nginx/sites-available/default
 
 # # RUN mkdir /var/www/mysite
 

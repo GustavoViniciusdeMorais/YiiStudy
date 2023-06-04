@@ -12,6 +12,7 @@ services:
         container_name: yiinginx
         depends_on:
             - mysql
+            - mailhog_yii
         networks:
             - yii-app-network
 
@@ -29,6 +30,18 @@ services:
         networks:
             yii-app-network:
                 ipv4_address: 13.0.0.8
+    
+    mailhog_yii:
+        build:
+            context: .
+            dockerfile: mailhog.dockerfile
+        container_name: mailhog_yii
+        ports:
+          - 1025:1025
+          - 8025:8025
+        networks:
+            yii-app-network:
+                ipv4_address: 13.0.0.10
     
     # redis:
     #     image: redis
