@@ -7,6 +7,7 @@ use backend\models\ProjectSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use Yii;
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -130,5 +131,17 @@ class ProjectController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public function actionTest()
+    {
+        $emailResult = Yii::$app->mailer->compose()
+            ->setFrom('from@domain.com')
+            ->setTo('to@domain.com')
+            ->setSubject('Message subject')
+            ->setTextBody('Plain text content')
+            ->setHtmlBody('<b>HTML content</b>')
+            ->send();
+        print_r(json_encode(['test' => $emailResult]));echo "\n\n";exit;
     }
 }

@@ -14,22 +14,22 @@ return [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@common/mail',
             // send all mails to a file by default.
-            'useFileTransport' => true,
+            // 'useFileTransport' => true,
             // You have to set
             //
-            // 'useFileTransport' => false,
+            'useFileTransport' => false,
             //
             // and configure a transport for the mailer to send real emails.
             //
             // SMTP server example:
-            //    'transport' => [
-            //        'scheme' => 'smtps',
-            //        'host' => '',
-            //        'username' => '',
-            //        'password' => '',
-            //        'port' => 465,
-            //        'dsn' => 'native://default',
-            //    ],
+               'transport' => [
+                   'scheme' => 'smtps',
+                   'host' => 'mailhog',
+                   'username' => '',
+                   'password' => '',
+                   'port' => 1025,
+                   'dsn' => 'native://default',
+               ],
             //
             // DSN example:
             //    'transport' => [

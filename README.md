@@ -71,5 +71,5 @@ if (!YII_ENV_TEST) {
 #### Run the command
 This command writes the env dev configs to the backend folder
 ```
-php yii init
+php init
 ```
