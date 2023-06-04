@@ -42,3 +42,34 @@ source /var/lib/mysql/dbExample.sql
 http://localhost/index.php?r=country%2Findex
 
 ```
+
+### Generated CRUD Project
+Links
+```
+http://localhost/backend/web/project
+http://localhost/backend/web/gii
+```
+Config access to gii from inside docker
+add the instruction 'allowedIPs' => ['127.0.0.1', '::1', $_SERVER['REMOTE_ADDR']]
+#### ./environments/dev/backend/config/main-local.php
+```php
+if (!YII_ENV_TEST) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => \yii\debug\Module::class,
+    ];
+    
+    $config['bootstrap'][] = 'gii';
+    //'class' => \yii\gii\Module::class,
+    $config['modules']['gii'] = [
+        'class' => \yii\gii\Module::class,
+        'allowedIPs' => ['127.0.0.1', '::1', $_SERVER['REMOTE_ADDR']],
+    ];
+}
+```
+#### Run the command
+This command writes the env dev configs to the backend folder
+```
+php yii init
+```
