@@ -35,7 +35,7 @@ class Project extends \yii\db\ActiveRecord
         return [
             [['name', 'tech_stack', 'description'], 'required'],
             [['tech_stack', 'description'], 'string'],
-            [['start_date', 'end_date'], 'integer'],
+            [['start_date', 'end_date'], 'date'],
             [['name'], 'string', 'max' => 255],
         ];
     }
