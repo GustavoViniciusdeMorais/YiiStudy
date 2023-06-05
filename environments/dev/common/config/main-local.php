@@ -17,19 +17,19 @@ return [
             // 'useFileTransport' => true,
             // You have to set
             //
-            'useFileTransport' => false,
+            'useFileTransport' => true,
             //
             // and configure a transport for the mailer to send real emails.
             //
             // SMTP server example:
-               'transport' => [
-                   'scheme' => 'smtps',
-                   'host' => 'mailhog',
-                   'username' => '',
-                   'password' => '',
-                   'port' => 1025,
-                   'dsn' => 'native://default',
-               ],
+            //    'transport' => [
+            //        'scheme' => 'smtps',
+            //        'host' => 'mailhog',
+            //        'username' => '',
+            //        'password' => '',
+            //        'port' => 1025,
+            //        'dsn' => 'native://default',
+            //    ],
             //
             // DSN example:
             //    'transport' => [

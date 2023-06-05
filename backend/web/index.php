@@ -14,5 +14,5 @@ $config = yii\helpers\ArrayHelper::merge(
     require __DIR__ . '/../config/main.php',
     require __DIR__ . '/../config/main-local.php'
 );
-// print_r(json_encode([$config]));echo "\n\n";exit;
+
 (new yii\web\Application($config))->run();
