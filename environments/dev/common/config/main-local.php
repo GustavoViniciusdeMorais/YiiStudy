@@ -17,19 +17,19 @@ return [
             // 'useFileTransport' => true,
             // You have to set
             //
-            'useFileTransport' => true,
+            'useFileTransport' => false,
             //
             // and configure a transport for the mailer to send real emails.
             //
             // SMTP server example:
-            //    'transport' => [
-            //        'scheme' => 'smtps',
-            //        'host' => 'mailhog',
-            //        'username' => '',
-            //        'password' => '',
-            //        'port' => 1025,
-            //        'dsn' => 'native://default',
-            //    ],
+               'transport' => [
+                   'scheme' => 'smtp',
+                   'host' => 'mailhog',
+                   'username' => '',
+                   'password' => '',
+                   'port' => 1025,
+                //    'dsn' => 'native://default',
+               ],
             //
             // DSN example:
             //    'transport' => [
@@ -39,6 +39,22 @@ return [
             // See: https://symfony.com/doc/current/mailer.html#using-built-in-transports
             // Or if you use a 3rd party service, see:
             // https://symfony.com/doc/current/mailer.html#using-a-3rd-party-transport
+        ],
+        'view' => [
+            'class' => 'yii\web\View',
+            'renderers' => [
+                'twig' => [
+                    'class' => 'yii\twig\ViewRenderer',
+                    'cachePath' => '@runtime/Twig/cache',
+                    // Array of twig options:
+                    'options' => [
+                        'auto_reload' => true,
+                    ],
+                    'globals' => ['html' => '\yii\helpers\Html'],
+                    'uses' => ['yii\bootstrap'],
+                ],
+                // ...
+            ],
         ],
     ],
 ];

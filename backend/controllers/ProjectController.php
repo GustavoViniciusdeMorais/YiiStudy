@@ -72,6 +72,7 @@ class ProjectController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', 'Success Yii!');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -95,6 +96,7 @@ class ProjectController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Success at update!');
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -133,15 +135,23 @@ class ProjectController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    public function actionTest()
+    public function actionTest($message = 'example')
     {
         $emailResult = Yii::$app->mailer->compose()
             ->setFrom('from@domain.com')
             ->setTo('to@domain.com')
-            ->setSubject('Message subject')
+            ->setSubject($message)
             ->setTextBody('Plain text content')
             ->setHtmlBody('<b>HTML content</b>')
             ->send();
-        print_r(json_encode(['test' => $emailResult]));echo "\n\n";exit;
+        
+        return json_encode([
+            'test' => $emailResult
+        ]);
+    }
+
+    public function actionFirstTwig()
+    {
+        return $this->render('firsttwig.twig', ['message' => 'Twig test message!']);
     }
 }
