@@ -21,13 +21,19 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::classname(), [
         'language' => 'en',
         // 'dateFormat' => 'yyyy-MM-dd',
-        'dateFormat' => 'php:d/m/Y',
+        // 'dateFormat' => 'php:Y-m-d',
+        'options' => [
+            'placeholder' => "Data"
+        ],
     ]) ?>
 
     <?= $form->field($model, 'end_date')->widget(\yii\jui\DatePicker::classname(), [
             'language' => 'en',
-            'dateFormat' => 'php:d/m/Y',
+            // 'dateFormat' => 'php:Y-m-d',
             // 'dateFormat' => 'yyyy-MM-dd',
+            'options' => [
+                'placeholder' => "Data"
+            ],
     ]) ?>
 
     <div class="form-group">
