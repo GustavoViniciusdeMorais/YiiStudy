@@ -98,9 +98,11 @@ class Project extends \yii\db\ActiveRecord
              */
             // $uploadPath = 'uploads/projects';
             $uploadPath = Yii::$app->params['uploads']['projects'];
+            $backendFolder = Yii::$app->params['uploads']['backend'];
+
             $file = new File();
             $file->name = uniqid('gus', true) . '.' . $this->imageFile->extension;
-            $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($uploadPath);
+            $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($backendFolder);
             $file->mime_type = mime_content_type($this->imageFile->tempName);
             $file->save();
 
@@ -116,5 +118,10 @@ class Project extends \yii\db\ActiveRecord
                 $db->transaction->rollBack();
             }
         });
+    }
+
+    public function hasImages()
+    {
+        return count($this->projectImages) > 0;
     }
 }

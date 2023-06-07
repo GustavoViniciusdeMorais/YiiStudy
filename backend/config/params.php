@@ -2,6 +2,7 @@
 return [
     'adminEmail' => 'admin@example.com',
     'uploads' => [
-        'projects' => 'uploads/projects'
+        'projects' => 'var/www/html/backend/web/uploads/projects',
+        'backend' => 'uploads/projects'
     ]
 ];

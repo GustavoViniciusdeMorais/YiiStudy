@@ -11,7 +11,7 @@ use kartik\editors\Summernote;
 
 <div class="project-form">
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'muiltpart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 

@@ -77,4 +77,9 @@ class File extends \yii\db\ActiveRecord
     {
         return new FileQuery(get_called_class());
     }
+
+    public function absoluteUrl()
+    {
+        return $this->base_url . '/' . $this->name;
+    }
 }
