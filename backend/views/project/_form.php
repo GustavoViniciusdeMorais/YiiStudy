@@ -41,6 +41,18 @@ use kartik\editors\Summernote;
             ],
     ]) ?>
 
+    <br>
+        <?php foreach ($model->projectImages as $image): ?>
+        <?=
+            Html::img($image->file->absoluteUrl(), [
+                'alt' => 'Example',
+                'height' => 200,
+                'width' => 200
+            ]);
+        ?>
+        <?php endforeach ?>
+    <br><br>
+
     <?= $form->field($model, 'imageFile')->fileInput() ?>
 
     <div class="form-group">
