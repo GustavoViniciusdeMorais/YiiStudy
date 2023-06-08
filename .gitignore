@@ -42,3 +42,5 @@ phpunit.phar
 runtime
 
 backend/web/uploads/projects/*
+
+web/assets/*

@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Project;
 use backend\models\ProjectSearch;
+use backend\jobs\MyJob;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -140,6 +141,12 @@ class ProjectController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
+    /* The `actionTest` function is a controller action that sends an email using Yii's built-in mailer
+    component. It takes an optional parameter `` which is used as the email subject. The
+    function composes an email with a plain text and HTML body, and sends it to a specified email
+    address. It then returns a JSON-encoded response indicating whether the email was sent
+    successfully or not. This function can be used for testing email functionality in a Yii
+    application. */
     public function actionTest($message = 'example')
     {
         $emailResult = Yii::$app->mailer->compose()
@@ -158,5 +165,21 @@ class ProjectController extends Controller
     public function actionFirstTwig()
     {
         return $this->render('firsttwig.twig', ['message' => 'Twig test message!']);
+    }
+
+    public function actionQueue()
+    {
+        $result = Yii::$app->queue->push(new MyJob());
+        return json_encode([
+            'result' => $result
+        ]);
+    }
+
+    public function actionTestRedis()
+    {
+        $result = Yii::$app->redis->set('name', 'gustavo');
+        return json_encode([
+            'redis result' => $result
+        ]);
     }
 }
