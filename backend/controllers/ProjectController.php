@@ -167,9 +167,12 @@ class ProjectController extends Controller
         return $this->render('firsttwig.twig', ['message' => 'Twig test message!']);
     }
 
-    public function actionQueue()
+    public function actionQueue($message = '')
     {
-        $result = Yii::$app->queue->push(new MyJob());
+        $result = Yii::$app->queue->push(new MyJob([
+            'message' => $message
+        ]));
+        
         return json_encode([
             'result' => $result
         ]);

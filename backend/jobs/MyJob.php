@@ -8,13 +8,18 @@ use Yii;
 
 class MyJob extends BaseObject implements JobInterface
 {
+    public $message;
+
     public function execute($queue)
     {
-        $message = 'sent redis';
+        if (empty($this->message)) {
+            $this->message = 'sent from redis';
+        }
+
         Yii::$app->mailer->compose()
             ->setFrom('from@domain.com')
             ->setTo('to@domain.com')
-            ->setSubject($message)
+            ->setSubject($this->message)
             ->setTextBody('Plain text content')
             ->setHtmlBody('<b>HTML content</b>')
             ->send();
