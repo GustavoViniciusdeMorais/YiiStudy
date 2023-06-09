@@ -47,7 +47,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         $imageHtml .= Html::img($image->file->absoluteUrl(), [
                             'alt' => 'Example',
                             'height' => 200,
-                            'width' => 200
+                            'width' => 200,
+                            'class' => 'project-view__image'
                         ]);
                     }
                     return $imageHtml;

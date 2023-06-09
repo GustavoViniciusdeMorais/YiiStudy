@@ -47,7 +47,8 @@ use kartik\editors\Summernote;
             Html::img($image->file->absoluteUrl(), [
                 'alt' => 'Example',
                 'height' => 200,
-                'width' => 200
+                'width' => 200,
+                'class' => 'project-view__image'
             ]);
         ?>
         <?php endforeach ?>
