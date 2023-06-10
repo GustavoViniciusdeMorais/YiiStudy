@@ -93,3 +93,7 @@ a.desc:after {
     display: block;
     margin-bottom: 16px;
 }
+
+.project-image-container {
+    margin-bottom: 16px;
+}

@@ -1,4 +1,4 @@
-FROM yiibkp
+FROM gustavovinicius/yii_nginx
 
 # FROM ubuntu:latest
 

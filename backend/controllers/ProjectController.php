@@ -5,6 +5,7 @@ namespace backend\controllers;
 use common\models\Project;
 use backend\models\ProjectSearch;
 use backend\jobs\MyJob;
+use common\models\ProjectImage;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,6 +29,7 @@ class ProjectController extends Controller
                     'class' => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['POST'],
+                        'deleteImage' => ['POST'],
                     ],
                 ],
             ]
@@ -187,6 +189,29 @@ class ProjectController extends Controller
         $result = Yii::$app->redis->set('name', 'gustavo');
         return json_encode([
             'redis result' => $result
+        ]);
+    }
+
+    public function actionDeleteImage()
+    {
+        $imageId = $this->request->post('imageId');
+        $image = ProjectImage::findOne($imageId);
+        
+        if (!$image) {
+            return json_encode([
+                'status' => 'error',
+                'data' => false
+            ]);
+        }
+
+        if ($image->file->delete()) {
+            $path = Yii::$app->params['uploads']['backend'] . '/' . $image->file->name;
+            unlink($path);
+        }
+
+        return json_encode([
+            'status' => 'success',
+            'data' => true
         ]);
     }
 }
