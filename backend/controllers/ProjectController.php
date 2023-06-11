@@ -203,7 +203,11 @@ class ProjectController extends Controller
                 'data' => false
             ]);
         }
-        $image->file->delete();
+        
+        if ($image->file->delete()) {
+            $path = Yii::$app->params['uploads']['backend'] . '/' . $image->file->name;
+            unlink($path);
+        }
 
         return json_encode([
             'status' => 'success',

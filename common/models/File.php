@@ -85,10 +85,10 @@ class File extends \yii\db\ActiveRecord
         return $this->base_url . '/' . $this->name;
     }
 
-    public function afterDelete()
-    {
-        parent::afterDelete();
-        $fileToDelete = $this->path_url . '/' . $this->file;
-        unlink($fileToDelete);
-    }
+    // public function afterDelete()
+    // {
+    //     parent::afterDelete();
+    //     $fileToDelete = $this->path_url . '/' . $this->file;
+    //     unlink($fileToDelete);
+    // }
 }

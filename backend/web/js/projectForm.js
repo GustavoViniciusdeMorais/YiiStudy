@@ -2,7 +2,8 @@ $(document).ready(function(){
     $('.btn-delete-project').click(function(){
         $(this).prop('disabled', true);
 
-        let imageId = $(this).data('image-id')
+        let imageId = $(this).data('image-id');
+        console.log('image id',imageId);
 
         $.post('delete-image', {
             imageId: imageId
