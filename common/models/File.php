@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $base_url
+ * @property string $path_url
  * @property string $mime_type
  *
  * @property ProjectImage[] $projectImages
@@ -31,8 +32,8 @@ class File extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'base_url', 'mime_type'], 'required'],
-            [['name', 'base_url', 'mime_type'], 'string', 'max' => 255],
+            [['name', 'base_url', 'path_url', 'mime_type'], 'required'],
+            [['name', 'base_url', 'path_url', 'mime_type'], 'string', 'max' => 255],
         ];
     }
 
@@ -45,6 +46,7 @@ class File extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'base_url' => Yii::t('app', 'Base Url'),
+            'path_url' => Yii::t('app', 'Path url'),
             'mime_type' => Yii::t('app', 'Mime Type'),
         ];
     }
@@ -81,5 +83,12 @@ class File extends \yii\db\ActiveRecord
     public function absoluteUrl()
     {
         return $this->base_url . '/' . $this->name;
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        $fileToDelete = $this->path_url . '/' . $this->file;
+        unlink($fileToDelete);
     }
 }

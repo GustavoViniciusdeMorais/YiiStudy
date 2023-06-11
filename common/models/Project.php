@@ -102,6 +102,7 @@ class Project extends \yii\db\ActiveRecord
 
             $file = new File();
             $file->name = uniqid('gus', true) . '.' . $this->imageFile->extension;
+            $file->path_url = $backendFolder;
             $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($backendFolder);
             $file->mime_type = mime_content_type($this->imageFile->tempName);
             $file->save();
