@@ -14,7 +14,11 @@ return [
         'log',
         'queue'
     ],
-    'modules' => [],
+    'modules' => [
+        'blog' => [
+            'class' => 'backend\modules\blog\Module',
+        ],
+    ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-backend',

@@ -11,6 +11,8 @@ php yii migrate/create create_project_image_table --fields="project_id:integer:n
 
 php yii migrate/create create_testimonial_table --fields="project_id:integer:notNull:foreignKey,customer_image_id:integer:notNull:foreignKey(file),title:string:notNull,customer_name:string:notNull,review:text:notNull,rating:integer:notNull"
 
+ php yii migrate/create create_post_table --fields="title:string:notNull,body:text:notNull,slug:text:notNull,is_published:boolean:notNull,created_at:bigInteger:notNull,updated_at:bigInteger:notNull"
+
 ```
 
 ### Run and Revert
