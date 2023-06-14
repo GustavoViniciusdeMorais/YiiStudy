@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\modules\blog\models;
+namespace frontend\modules\blog\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
