@@ -45,6 +45,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'blog/post/<slug>' => 'blog/post/view',
             ],
         ],
     ],

@@ -105,3 +105,15 @@ a.desc:after {
 .post {
     margin-bottom: 8px;
 }
+
+.post-view__date {
+    font-size: 1.2em;
+    font-weight: 300;
+    margin-bottom: 24px;
+}
+
+.post-view__body {
+    font-size: 1.2em;
+    font-weight: 300;
+    margin-bottom: 24px;
+}
