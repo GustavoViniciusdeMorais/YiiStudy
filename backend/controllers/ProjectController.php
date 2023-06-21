@@ -76,9 +76,9 @@ class ProjectController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $model->loadUploadedImageFiles();
                 if ($model->save()) {
-                    $model->saveImage();
+                    $model->saveImages();
                     Yii::$app->session->setFlash('success', 'Success Yii!');
                     return $this->redirect(['view', 'id' => $model->id]);
                 }
@@ -104,9 +104,9 @@ class ProjectController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post())) {
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->loadUploadedImageFiles();
             if ($model->save()) {
-                $model->saveImage();
+                $model->saveImages();
                 Yii::$app->session->setFlash('success', 'Success at update!');
                 return $this->redirect(['view', 'id' => $model->id]);
             }

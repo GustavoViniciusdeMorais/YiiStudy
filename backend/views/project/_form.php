@@ -51,8 +51,8 @@ $this->registerJsFile(
 
     <br>
 
-    <?= $form->field($model, 'imageFile')->widget(FileInput::class, [
-        'options' => ['accept' => 'image/*'],
+    <?= $form->field($model, 'imageFiles[]')->widget(FileInput::class, [
+        'options' => ['accept' => 'image/*', 'multiple' => true],
         'pluginOptions' => [
             'initialPreview'=> $model->imagemAbsolutUrl(),
             'initialPreviewAsData' => true,

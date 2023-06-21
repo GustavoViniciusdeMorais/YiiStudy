@@ -27,7 +27,7 @@ if (!YII_ENV_TEST) {
     //'class' => \yii\gii\Module::class,
     $config['modules']['gii'] = [
         'class' => \yii\gii\Module::class,
-        'allowedIPs' => ['127.0.0.1', '::1', $_SERVER['REMOTE_ADDR']],
+        'allowedIPs' => ['127.0.0.1', '::1', $_SERVER['REMOTE_ADDR'], '13.0.0.3'],
     ];
 }
 

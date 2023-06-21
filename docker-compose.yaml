@@ -15,7 +15,8 @@ services:
             - mailhog
             - redisyii
         networks:
-            - yii-app-network
+            yii-app-network:
+                ipv4_address: 13.0.0.3
 
     mysql:
         image: mysql:5.7

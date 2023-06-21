@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "project".
@@ -22,7 +23,7 @@ class Project extends \yii\db\ActiveRecord
     /**
      * @var yii\web\UploadedFile
      */
-    public $imageFile;
+    public $imageFiles;
 
     /**
      * {@inheritdoc}
@@ -42,7 +43,7 @@ class Project extends \yii\db\ActiveRecord
             [['tech_stack', 'description'], 'string'],
             [['start_date', 'end_date'], 'date'],
             [['name'], 'string', 'max' => 255],
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg']
+            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 5]
         ];
     }
 
@@ -90,33 +91,34 @@ class Project extends \yii\db\ActiveRecord
         return new ProjectQuery(get_called_class());
     }
 
-    public function saveImage()
+    public function saveImages()
     {
         Yii::$app->db->transaction(function ($db) {
-            /**
-             * @var $db yii\db\Connection
-             */
-            // $uploadPath = 'uploads/projects';
-            $uploadPath = Yii::$app->params['uploads']['projects'];
-            $backendFolder = Yii::$app->params['uploads']['backend'];
+            foreach ($this->imageFiles as $imageFile) {
+                /**
+                 * @var $db yii\db\Connection
+                 */
+                // $uploadPath = 'uploads/projects';
+                $uploadPath = Yii::$app->params['uploads']['projects'];
+                $backendFolder = Yii::$app->params['uploads']['backend'];
+                $file = new File();
+                $file->name = uniqid('gus', true) . '.' . $imageFile->extension;
+                $file->path_url = $backendFolder;
+                $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($backendFolder);
+                $file->mime_type = mime_content_type($imageFile->tempName);
+                $file->save();
 
-            $file = new File();
-            $file->name = uniqid('gus', true) . '.' . $this->imageFile->extension;
-            $file->path_url = $backendFolder;
-            $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($backendFolder);
-            $file->mime_type = mime_content_type($this->imageFile->tempName);
-            $file->save();
+                $projectImage = new ProjectImage();
+                $projectImage->project_id = $this->id;
+                $projectImage->file_id = $file->id;
+                $projectImage->save();
 
-            $projectImage = new ProjectImage();
-            $projectImage->project_id = $this->id;
-            $projectImage->file_id = $file->id;
-            $projectImage->save();
+                $fileName = "/{$uploadPath}/{$file->name}";
+                $wasFileSaved = $imageFile->saveAs($fileName);
 
-            $fileName = "/{$uploadPath}/{$file->name}";
-            $wasFileSaved = $this->imageFile->saveAs($fileName);
-
-            if (!$wasFileSaved) {
-                $db->transaction->rollBack();
+                if (!$wasFileSaved) {
+                    $db->transaction->rollBack();
+                }
             }
         });
     }
@@ -144,5 +146,10 @@ class Project extends \yii\db\ActiveRecord
             ];
         }
         return $configs;
+    }
+
+    public function loadUploadedImageFiles()
+    {
+        $this->imageFiles = UploadedFile::getInstances($this, 'imageFiles');
     }
 }
