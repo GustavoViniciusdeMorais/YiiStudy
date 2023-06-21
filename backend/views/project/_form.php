@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\editors\Summernote;
 use kartik\file\FileInput;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var common\models\Project $model */
@@ -55,7 +56,9 @@ $this->registerJsFile(
         'pluginOptions' => [
             'initialPreview'=> $model->imagemAbsolutUrl(),
             'initialPreviewAsData' => true,
-            'showUpload' => false
+            'showUpload' => false,
+            'deleteUrl' => Url::to(['project/delete-image']),
+            'initialPreviewConfig' => $model->imageConfig()
         ]
     ]);
     ?>

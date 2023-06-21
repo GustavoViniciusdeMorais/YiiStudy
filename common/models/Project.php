@@ -134,4 +134,15 @@ class Project extends \yii\db\ActiveRecord
         }
         return $urls;
     }
+
+    public function imageConfig()
+    {
+        $configs = [];
+        foreach ($this->projectImages as $image) {
+            $configs[] = [
+                'key' => $image->id
+            ];
+        }
+        return $configs;
+    }
 }

@@ -194,7 +194,7 @@ class ProjectController extends Controller
 
     public function actionDeleteImage()
     {
-        $imageId = $this->request->post('imageId');
+        $imageId = $this->request->post('key');
         $image = ProjectImage::findOne($imageId);
         
         if (!$image) {
@@ -207,11 +207,15 @@ class ProjectController extends Controller
         if ($image->file->delete()) {
             $path = Yii::$app->params['uploads']['backend'] . '/' . $image->file->name;
             unlink($path);
+            return json_encode([
+                'status' => 'success',
+                'data' => true
+            ]);
         }
 
         return json_encode([
-            'status' => 'success',
-            'data' => true
+            'status' => 'error',
+            'error' => true
         ]);
     }
 }
