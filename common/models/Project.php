@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\web\UploadedFile;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "project".
@@ -114,7 +115,12 @@ class Project extends \yii\db\ActiveRecord
                 $projectImage->save();
 
                 $fileName = "/{$uploadPath}/{$file->name}";
-                $wasFileSaved = $imageFile->saveAs($fileName);
+
+                // just reduces the byte size of the image
+                $thambunial = Image::thumbnail($imageFile->tempName, null, 1080);
+                $wasFileSaved = $thambunial->save($fileName);
+                
+                // $wasFileSaved = $imageFile->saveAs($fileName);
 
                 if (!$wasFileSaved) {
                     $db->transaction->rollBack();
