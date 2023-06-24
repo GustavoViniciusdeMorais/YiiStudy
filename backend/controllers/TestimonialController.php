@@ -4,9 +4,11 @@ namespace backend\controllers;
 
 use common\models\Testimonial;
 use backend\models\TestimonialSearch;
+use common\models\Project;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 
 /**
  * TestimonialController implements the CRUD actions for Testimonial model.
@@ -79,6 +81,7 @@ class TestimonialController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'projects' => $this->loadProjects()
         ]);
     }
 
@@ -99,6 +102,7 @@ class TestimonialController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'projects' => $this->loadProjects()
         ]);
     }
 
@@ -130,5 +134,10 @@ class TestimonialController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    private function loadProjects()
+    {
+        return ArrayHelper::map(Project::find()->asArray()->all(), 'id', 'name');
     }
 }
