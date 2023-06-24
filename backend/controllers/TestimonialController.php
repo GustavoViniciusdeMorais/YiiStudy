@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
+use Yii;
 
 /**
  * TestimonialController implements the CRUD actions for Testimonial model.
