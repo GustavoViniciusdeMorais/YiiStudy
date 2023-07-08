@@ -3,6 +3,8 @@
 namespace common\models;
 
 use Yii;
+use yii\web\UploadedFile;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "testimonial".
@@ -21,6 +23,11 @@ use Yii;
 class Testimonial extends \yii\db\ActiveRecord
 {
     /**
+     * @var 
+     */
+    public $imageFile;
+
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -38,8 +45,8 @@ class Testimonial extends \yii\db\ActiveRecord
             [['project_id', 'customer_image_id', 'rating'], 'integer'],
             [['review'], 'string'],
             [['title', 'customer_name'], 'string', 'max' => 255],
-            [['customer_image_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['customer_image_id' => 'id']],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::class, 'targetAttribute' => ['project_id' => 'id']],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg']
         ];
     }
 
@@ -56,6 +63,7 @@ class Testimonial extends \yii\db\ActiveRecord
             'customer_name' => Yii::t('app', 'Customer Name'),
             'review' => Yii::t('app', 'Review'),
             'rating' => Yii::t('app', 'Rating'),
+            'imageFile' => Yii::t('app', 'Image')
         ];
     }
 
@@ -86,5 +94,62 @@ class Testimonial extends \yii\db\ActiveRecord
     public static function find()
     {
         return new TestimonialQuery(get_called_class());
+    }
+
+    public function loadUploadedImageFile()
+    {
+        $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
+    }
+
+    public function saveImage()
+    {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+        try {
+            $backendFolder = Yii::$app->params['uploads']['backend'];
+            $file = new File();
+            $file->name = uniqid(true) . $this->imageFile->extension;
+            $file->path_url = Yii::$app->params['uploads']['testimonials'];
+            $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($backendFolder);
+            $file->mime_type = mime_content_type($this->imageFile->tempName);
+            $file->save();
+
+            $this->customer_image_id = $file->id;
+
+            $thumbnial = Image::thumbnail($this->imageFile->tempName, null, 1080);
+            $idSave = $thumbnial->save($file->path_url . '/' . $file->name);
+            if (!$idSave) {
+                $this->addError('imageFile', Yii::t('app', 'Failed to save file'));
+                $transaction->rollBack();
+            }
+            
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            $this->addError(
+                'imageFile', 
+                Yii::t('app', 'Failed to save file') . '(' . $e->getMessage() . ')'
+            );
+            return false;
+        } catch (\Throwable $th) {
+            $transaction->rollBack();
+            $this->addError(
+                'imageFile', 
+                Yii::t('app', 'Failed to save file') . '(' . $th->getMessage() . ')'
+            );
+            return false;
+        }
+
+        return true;
+    }
+
+    public function imagemAbsolutUrl()
+    {
+        return $this->customerImage ? $this->customerImage->absoluteUrl() : [];
+    }
+
+    public function imageConfig()
+    {
+        return $this->customerImage ? [['key' => $this->customerImage->id]] : [];
     }
 }
